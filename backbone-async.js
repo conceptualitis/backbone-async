@@ -9,11 +9,6 @@
     // as keys and this will run the appropriate request
     // when you do something like myModel.async("restaurants", { data: true })
     var async = function (action, data) {
-        if (!this.actions || !this.actions[action]) {
-            console.log("query information for the action '" + action + "' hasn't been set up");
-            return;
-        }
-
         if (!action) {
             // doing some request chaining so you could
             // do myModel.async().get("restaurants")
@@ -23,6 +18,11 @@
                     this.async.apply(this, arguments);
                 }, this)];
             }, this));
+        }
+
+        if (!this.actions || !this.actions[action]) {
+            console.log("query information for the action '" + action + "' hasn't been set up");
+            return;
         }
 
         // save this for possible use inside callbacks
